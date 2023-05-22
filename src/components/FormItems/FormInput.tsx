@@ -1,24 +1,30 @@
 import * as React from 'react'
-import { type UseFormReturn } from 'react-hook-form'
+import { type FieldPath, type FieldValues, type UseFormReturn } from 'react-hook-form'
 
 import { Input } from '@/ui/input'
 import { FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/ui'
 
-export interface FormInputProps {
-  name: string
-  form: UseFormReturn<any>
+export interface FormInputProps<
+  TFieldValues extends FieldValues = FieldValues,
+  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>
+> {
+  name: TName
+  form: UseFormReturn<TFieldValues, any>
   placeholder?: string
   label?: string
   description?: React.ReactNode
 }
 
-export function FormInput({
+export function FormInput<
+  TFieldValues extends FieldValues = FieldValues,
+  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>
+>({
   form,
   name,
   placeholder,
   label,
   description
-}: FormInputProps): JSX.Element {
+}: FormInputProps<TFieldValues, TName>): JSX.Element {
   return (
     <FormField
       control={form.control}

@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { type UseFormReturn } from 'react-hook-form'
+import { type FieldPath, type FieldValues, type UseFormReturn } from 'react-hook-form'
 
 import {
   Button,
@@ -16,21 +16,27 @@ import { DATE_FORMAT, cn } from '@/utils'
 import { format } from 'date-fns'
 import { CalendarIcon } from 'lucide-react'
 
-export interface FormDatePickerProps {
-  name: string
-  form: UseFormReturn<any>
+export interface FormDatePickerProps<
+  TFieldValues extends FieldValues = FieldValues,
+  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>
+> {
+  name: TName
+  form: UseFormReturn<TFieldValues, any>
   placeholder?: string
   label?: string
   description?: React.ReactNode
 }
 
-export function FormDatePicker({
+export function FormDatePicker<
+  TFieldValues extends FieldValues = FieldValues,
+  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>
+>({
   form,
   name,
   placeholder,
   label,
   description
-}: FormDatePickerProps): JSX.Element {
+}: FormDatePickerProps<TFieldValues, TName>): JSX.Element {
   return (
     <FormField
       control={form.control}

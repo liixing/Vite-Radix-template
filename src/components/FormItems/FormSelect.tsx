@@ -1,5 +1,10 @@
 import * as React from 'react'
-import { type UseFormReturn } from 'react-hook-form'
+import {
+  type PathValue,
+  type FieldPath,
+  type FieldValues,
+  type UseFormReturn
+} from 'react-hook-form'
 
 import {
   Button,
@@ -20,9 +25,12 @@ import { cn } from '@/utils'
 import { Check, ChevronsUpDown } from 'lucide-react'
 import { type SelectOption } from '@/types'
 
-export interface FormSelectProps {
-  name: string
-  form: UseFormReturn<any>
+export interface FormSelectProps<
+  TFieldValues extends FieldValues = FieldValues,
+  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>
+> {
+  name: TName
+  form: UseFormReturn<TFieldValues, any>
   options: SelectOption[]
   placeholder?: string
   label?: string
@@ -30,7 +38,10 @@ export interface FormSelectProps {
   mode?: 'single' | 'multiple'
 }
 
-export function FormSelect({
+export function FormSelect<
+  TFieldValues extends FieldValues = FieldValues,
+  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>
+>({
   form,
   name,
   placeholder,
@@ -38,7 +49,7 @@ export function FormSelect({
   label,
   description,
   mode = 'single'
-}: FormSelectProps): JSX.Element {
+}: FormSelectProps<TFieldValues, TName>): JSX.Element {
   const [open, setOpen] = React.useState(false)
   const isSingle = mode === 'single'
 
@@ -96,12 +107,12 @@ export function FormSelect({
                       key={option.value}
                       onSelect={(value) => {
                         isSingle
-                          ? form.setValue(name, value)
+                          ? form.setValue(name, value as PathValue<TFieldValues, TName>)
                           : form.setValue(
                               name,
                               Array.isArray(field.value)
                                 ? field.value.includes(value)
-                                  ? field.value.filter((v) => v !== value)
+                                  ? field.value.filter((v: string) => v !== value)
                                   : [...field.value, value]
                                 : [value]
                             )

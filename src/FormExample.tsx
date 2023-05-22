@@ -41,8 +41,13 @@ export function MyForm(): JSX.Element {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-        <FormInput name="name" form={form} label="名字" placeholder="请输入一下你的名字" />
-        <FormSelect name="years" label="年龄" form={form} options={options} />
+        <FormInput<FormValues>
+          name="name"
+          form={form}
+          label="名字"
+          placeholder="请输入一下你的名字"
+        />
+        <FormSelect<FormValues> name="years" label="年龄" form={form} options={options} />
         <FormDatePicker name="date" form={form} />
       </form>
     </Form>
