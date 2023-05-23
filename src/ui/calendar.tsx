@@ -17,7 +17,7 @@ const formatWeekNumber: WeekNumberFormatter = (weekNumber) => {
 
 const formatCaption: DateFormatter = (date) => {
   const y = date.getFullYear()
-  const m = date.getMonth()
+  const m = date.getMonth() + 1
   return `${y}年${m}月`
 }
 

@@ -1,8 +1,7 @@
-/* eslint-disable @typescript-eslint/explicit-function-return-type */
 // Inspired by react-hot-toast library
 import * as React from 'react'
 
-import { type ToastActionElement, type ToastProps } from '@/ui/toast'
+import { type ToastActionElement, type ToastProps } from '@/ui'
 
 const TOAST_LIMIT = 1
 const TOAST_REMOVE_DELAY = 1000000
@@ -54,7 +53,7 @@ interface State {
 
 const toastTimeouts = new Map<string, ReturnType<typeof setTimeout>>()
 
-const addToRemoveQueue = (toastId: string) => {
+const addToRemoveQueue = (toastId: string): void => {
   if (toastTimeouts.has(toastId)) {
     return
   }
@@ -136,16 +135,17 @@ function dispatch(action: Action): void {
 
 interface Toast extends Omit<ToasterToast, 'id'> {}
 
+// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 function toast({ ...props }: Toast) {
   const id = genId()
 
-  const update = (props: ToasterToast) => {
+  const update = (props: ToasterToast): void => {
     dispatch({
       type: 'UPDATE_TOAST',
       toast: { ...props, id }
     })
   }
-  const dismiss = () => {
+  const dismiss = (): void => {
     dispatch({ type: 'DISMISS_TOAST', toastId: id })
   }
 
@@ -155,7 +155,7 @@ function toast({ ...props }: Toast) {
       ...props,
       id,
       open: true,
-      onOpenChange: (open) => {
+      onOpenChange: (open: boolean) => {
         if (!open) dismiss()
       }
     }
@@ -168,6 +168,7 @@ function toast({ ...props }: Toast) {
   }
 }
 
+// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 function useToast() {
   const [state, setState] = React.useState<State>(memoryState)
 

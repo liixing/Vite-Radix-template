@@ -7,11 +7,11 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-  Input
+  Textarea
 } from '@/ui'
 import { type FormItemProps } from '@/types'
 
-export function FormInput<
+export function FormTextArea<
   TFieldValues extends FieldValues = FieldValues,
   TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>
 >({
@@ -29,7 +29,11 @@ export function FormInput<
         <FormItem>
           {label && <FormLabel>{label}</FormLabel>}
           <FormControl>
-            <Input placeholder={placeholder ?? `请输入${label ?? ''}`} {...field} />
+            <Textarea
+              placeholder={placeholder ?? `请输入${label ?? ''}`}
+              className="resize-none"
+              {...field}
+            />
           </FormControl>
           {description && <FormDescription>{description}</FormDescription>}
           <FormMessage />

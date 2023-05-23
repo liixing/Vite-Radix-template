@@ -35,7 +35,8 @@ import {
   CardDescription,
   CardContent,
   CardFooter,
-  Checkbox
+  Checkbox,
+  Toaster
 } from '@/ui'
 import { useState } from 'react'
 import { DatePicker, Select } from '@/components'
@@ -91,6 +92,7 @@ function App(): JSX.Element {
 
   return (
     <div className="container mx-auto py-10">
+      <Toaster />
       {/* Accordion */}
       <Accordion type="single" collapsible className="w-full">
         <AccordionItem value="item-1">

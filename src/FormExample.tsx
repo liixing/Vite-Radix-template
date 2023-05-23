@@ -1,15 +1,27 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import * as z from 'zod'
-import { Form, toast } from '@/ui'
-import { FormDatePicker, FormInput, FormSelect } from '@/components'
+import { Button, Form, toast } from '@/ui'
+import { FormDatePicker, FormInput, FormRangePicker, FormSelect } from '@/components'
 import { type SelectOption } from './types'
 
 const FormSchema = z.object({
   name: z.string().min(2, {
-    message: 'Username must be at least 2 characters.'
+    message: '名字不能少于2个字符'
   }),
-  years: z.number().int().min(0).max(100).optional()
+  years: z
+    .string()
+    .transform((value) => Number(value))
+    .refine((value) => value > 1, {
+      message: '年龄不能小于1'
+    }),
+  date: z.date().optional(),
+  rangeDate: z
+    .object({
+      from: z.date().optional(),
+      to: z.date().optional()
+    })
+    .optional()
 })
 
 type FormValues = z.infer<typeof FormSchema>
@@ -48,7 +60,9 @@ export function MyForm(): JSX.Element {
           placeholder="请输入一下你的名字"
         />
         <FormSelect<FormValues> name="years" label="年龄" form={form} options={options} />
-        <FormDatePicker name="date" form={form} />
+        <FormDatePicker<FormValues> name="date" form={form} />
+        <FormRangePicker<FormValues> form={form} name="rangeDate" />
+        <Button type="submit">Submit</Button>
       </form>
     </Form>
   )
