@@ -8,9 +8,11 @@ import {
   FormField,
   FormItem,
   FormLabel,
-  FormMessage
+  FormMessage,
+  Popover,
+  PopoverContent,
+  PopoverTrigger
 } from '@/ui'
-import { Popover, PopoverContent, PopoverTrigger } from '@/ui/popover'
 import { DATE_FORMAT, cn } from '@/utils'
 import { format } from 'date-fns'
 import { CalendarIcon } from 'lucide-react'

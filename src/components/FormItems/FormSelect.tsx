@@ -18,9 +18,11 @@ import {
   FormField,
   FormItem,
   FormLabel,
-  FormMessage
+  FormMessage,
+  Popover,
+  PopoverContent,
+  PopoverTrigger
 } from '@/ui'
-import { Popover, PopoverContent, PopoverTrigger } from '@/ui/popover'
 import { cn } from '@/utils'
 import { Check, ChevronsUpDown } from 'lucide-react'
 import { type SelectOption } from '@/types'
