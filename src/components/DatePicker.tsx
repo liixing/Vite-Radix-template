@@ -3,9 +3,7 @@ import { format } from 'date-fns'
 import { Calendar as CalendarIcon } from 'lucide-react'
 
 import { cn } from '@/utils'
-import { Button } from '@/ui/button'
-import { Calendar } from '@/ui/calendar'
-import { Popover, PopoverContent, PopoverTrigger } from '@/ui'
+import { Popover, PopoverContent, PopoverTrigger, Calendar, Button } from '@/ui'
 
 export function DatePicker(): JSX.Element {
   const [date, setDate] = React.useState<Date>()
